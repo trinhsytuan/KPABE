@@ -5,3 +5,6 @@
 #include<pbc.h>
 #include<iostream>
 using namespace std;
+bool checkPolicy(char policy, const char* policyarr[], int arrPolicySize) {
+    return true;
+}

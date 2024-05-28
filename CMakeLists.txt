@@ -11,6 +11,7 @@ add_executable(KPABE main.cpp
         utils/utils.cpp
         KeyGenerator.h
         KeyGenerator.cpp
+        utils/utils.h
 )
 
 include_directories(KPABE "${GMP_INCLUDE_DIR}")

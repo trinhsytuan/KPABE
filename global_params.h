@@ -9,7 +9,7 @@ using namespace std;
 
 const int maxUser = 10;
 const int attribute = 20;
-const int level = 12;
+const int level = 6;
 
 typedef struct {
     element_t g;

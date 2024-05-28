@@ -2,7 +2,7 @@
 // Created by Trinh Tuan on 27/05/2024.
 //
 #include "global_params.h"
-#include"attribute.h"
+
 
 
 void initGlobalParameter(pairing_t pairing, global_parameter* globalParams) {
