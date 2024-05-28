@@ -12,8 +12,8 @@ void initAttribute(pairing_t pairing, keyUser* userKey) {
             element_random(userKey->au[i][j]);
         }
     }
-
 }
+
 void genKeyForUser(pairing_t pairing, keyUser* userKey, public_parametter publicParametter, element_t alpha, element_t beta, element_t g) {
     for(int i = 0; i < maxPolicy;i++) {
         for(int j = 0; j < maxLevel;j++) {
@@ -30,5 +30,4 @@ void genKeyForUser(pairing_t pairing, keyUser* userKey, public_parametter public
             //element_printf("%B\n", userKey->du[i][j]);
         }
     }
-
 }

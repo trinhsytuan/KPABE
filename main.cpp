@@ -4,6 +4,7 @@
 #include"attribute.h"
 #include "KeyGenerator.h"
 #include "utils/utils.h"
+#include"Encrypt.h"
 #include<iostream>
 using namespace std;
 int main() {
@@ -22,5 +23,6 @@ int main() {
     initPublicParameter(pairing, &pubParametter, &paramsGlobal);
     initAttribute(pairing, &userKey);
     genKeyForUser(pairing, &userKey, pubParametter, paramsGlobal.alpha, paramsGlobal.beta, paramsGlobal.g);
+    encrypt(pairing, pubParametter);
     return 0;
 }

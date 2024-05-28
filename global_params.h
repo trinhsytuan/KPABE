@@ -27,6 +27,7 @@ struct public_parametter{
     element_t gaBetaDivAlpha;
     element_t gAlpha;
     element_t pairingGGa;
+    element_t g;
 };
 
 void initGlobalParameter(pairing_t pairing, global_parameter* globalParams);

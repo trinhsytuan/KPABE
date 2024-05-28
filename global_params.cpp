@@ -3,7 +3,7 @@
 //
 #include "global_params.h"
 
-
+using namespace std;
 
 void initGlobalParameter(pairing_t pairing, global_parameter* globalParams) {
     element_init_G1(globalParams->g, pairing);
@@ -28,6 +28,8 @@ void initGlobalParameter(pairing_t pairing, global_parameter* globalParams) {
 }
 
 void initPublicParameter(pairing_t pairing, public_parametter* publicParams, global_parameter* globalParams) {
+    element_init_G1(publicParams->g, pairing);
+    element_set(publicParams->g, globalParams->g);
     for(int i = 0; i < maxUser;i++) {
         element_init_Zr(publicParams->U[i], pairing);
         element_set(publicParams->U[i], globalParams->U[i]);
