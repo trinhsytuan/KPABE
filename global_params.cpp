@@ -7,7 +7,7 @@ using namespace std;
 
 void initGlobalParameter(pairing_t pairing, global_parameter* globalParams) {
     element_init_G1(globalParams->g, pairing);
-    element_init_G1(globalParams->ga, pairing);
+    element_init_G2(globalParams->ga, pairing);
     element_init_Zr(globalParams->alpha, pairing);
     element_init_Zr(globalParams->beta, pairing);
     for (int i = 0; i < attribute; i++) {
@@ -61,7 +61,7 @@ void initPublicParameter(pairing_t pairing, public_parametter* publicParams, glo
     }
     for(int i = 0; i < level*attribute;i++) {
         for(int j = 0; j < 2;j++) {
-            element_init_G1(publicParams->gaPow[i][j], pairing);
+            element_init_G2(publicParams->gaPow[i][j], pairing);
             element_t tempMul;
             element_init_Zr(tempMul, pairing);
             element_mul(tempMul, alphaTemp[i], TTemp[j]);
@@ -69,7 +69,7 @@ void initPublicParameter(pairing_t pairing, public_parametter* publicParams, glo
         }
     }
     element_pow_zn(TTemp[0], TTemp[0],zeroTemp);
-    element_init_G1(publicParams->gaBetaDivAlpha, pairing);
+    element_init_G2(publicParams->gaBetaDivAlpha, pairing);
     element_mul(publicParams->gaBetaDivAlpha, globalParams->beta, globalParams->alpha);
     element_init_G1(publicParams->gAlpha, pairing);
     element_init_GT(publicParams->pairingGGa, pairing);

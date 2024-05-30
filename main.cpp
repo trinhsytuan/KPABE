@@ -13,9 +13,6 @@ int main() {
     global_parameter paramsGlobal;
     public_parametter pubParametter;
     keyUser userKey;
-    int sizeAtrribute = getSizeAttributesTable();
-
-
     // initialization
     pbc_param_init_a_gen(par, 160, 512);
     pairing_init_pbc_param(pairing, par);
