@@ -55,10 +55,11 @@ void initPublicParameter(pairing_t pairing, public_parametter* publicParams, glo
     }
 
     element_t TTemp[2];
-    for(int i = 0; i < 2;i++) {
-        element_init_G1(TTemp[i], pairing);
-        element_set(TTemp[i], globalParams->beta);
-    }
+    element_init_G1(TTemp[0], pairing);
+    element_set(TTemp[0], globalParams->beta);
+    element_pow_zn(TTemp[0], TTemp[0],zeroTemp);
+    element_init_G1(TTemp[1], pairing);
+    element_set(TTemp[1], globalParams->beta);
     for(int i = 0; i < level*attribute;i++) {
         for(int j = 0; j < 2;j++) {
             element_init_G2(publicParams->gaPow[i][j], pairing);
@@ -68,7 +69,6 @@ void initPublicParameter(pairing_t pairing, public_parametter* publicParams, glo
             element_pow_zn(publicParams->gaPow[i][j], globalParams->ga, tempMul);
         }
     }
-    element_pow_zn(TTemp[0], TTemp[0],zeroTemp);
     element_init_G2(publicParams->gaBetaDivAlpha, pairing);
     element_mul(publicParams->gaBetaDivAlpha, globalParams->beta, globalParams->alpha);
     element_init_G1(publicParams->gAlpha, pairing);
