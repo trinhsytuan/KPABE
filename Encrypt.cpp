@@ -38,4 +38,5 @@ void encrypt(pairing_t pairing, public_parametter publicParametter) {
     element_t C1;
     element_init_G2(C1, pairing);
 
+
 }

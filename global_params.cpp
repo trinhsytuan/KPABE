@@ -73,5 +73,6 @@ void initPublicParameter(pairing_t pairing, public_parametter* publicParams, glo
     element_mul(publicParams->gaBetaDivAlpha, globalParams->beta, globalParams->alpha);
     element_init_G1(publicParams->gAlpha, pairing);
     element_init_GT(publicParams->pairingGGa, pairing);
+    //test s
     pairing_apply(publicParams->pairingGGa, globalParams->g, globalParams->ga, pairing);
 }
