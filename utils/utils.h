@@ -7,5 +7,5 @@
 bool checkPolicy(char policy, const char* policyarr[], int arrPolicySize);
 int factorial(int n);
 int binomialCoefficient(int n, int k);
-element_t* powCoefficient(element_t s1, element_t s2, element_t s3);
+void powCoefficient(element_t s1, element_t s2, pairing_t pairing, element_t kq);
 #endif //KPABE_UTILS_H

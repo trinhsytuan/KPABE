@@ -12,6 +12,7 @@ int main() {
     pbc_param_t par;
     global_parameter paramsGlobal;
     public_parametter pubParametter;
+    int tt[] = {1,2,3};
     keyUser userKey;
     // initialization
     pbc_param_init_a_gen(par, 160, 512);
@@ -20,6 +21,6 @@ int main() {
     initPublicParameter(pairing, &pubParametter, &paramsGlobal);
     initAttribute(pairing, &userKey);
     genKeyForUser(pairing, &userKey, pubParametter, paramsGlobal.alpha, paramsGlobal.beta, paramsGlobal.g);
-    encrypt(pairing, pubParametter);
+    encrypt(pairing, pubParametter, tt ,3,6);
     return 0;
 }

@@ -19,32 +19,39 @@ int factorial(int n) {
 }
 
 long binomialCoefficient(int n, int k) {
-    return factorial(n) / (factorial(k) * factorial(n - k));
+    if (k == 0 || k == n) return 1;
+    if (k > n - k) k = n - k;
+    int res = 1;
+    for (int i = 0; i < k; ++i) {
+        res *= (n - i);
+        res /= (i + 1);
+    }
+    return res;
 }
-element_t* powCoefficient(element_t s1, element_t s2, pairing_t pairing){
+void powCoefficient(element_t s1, element_t s2, pairing_t pairing, element_t kq){
     element_t mupow, nk, k;
     element_t xpownk, gk, temp;
-    element_t *res = (element_t *)malloc(sizeof(element_t));
-    if (res == NULL) {
-        return NULL;
-    }
-    element_init_G1(mupow, pairing);
-    element_init_G1(xpownk, pairing);
-    element_init_G1(gk, pairing);
-    element_init_G1(*res, pairing);
-    element_init_G1(nk, pairing);
-    element_init_G1(k, pairing);
-    element_init_G1(temp, pairing);
+    element_t res;
+    element_init_Zr(mupow, pairing);
+    element_init_G2(xpownk, pairing);
+    element_init_Zr(gk, pairing);
+    element_init_G2(res, pairing);
+    element_init_Zr(nk, pairing);
+    element_init_Zr(k, pairing);
+    element_init_G2(temp, pairing);
     element_set1(temp);
-    element_set0(*res);
+    element_set0(res);
+
     for(int i = 0; i <= maxLevel;i++) {
         element_set_si(mupow, binomialCoefficient(maxLevel, i));
         element_set_si(nk, maxLevel - i);
         element_set_si(k, i);
+
         element_pow_zn(xpownk, s1, nk);
         element_pow_zn(gk, s2, k);
         element_mul(temp, xpownk, gk);
-        element_add(*res, *res, temp);
+        element_add(res, res, temp);
     }
-    return res;
+    element_set(kq, res);
+
 }
