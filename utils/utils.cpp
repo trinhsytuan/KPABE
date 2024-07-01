@@ -34,7 +34,7 @@ void powCoefficient(element_t s1, element_t s2, pairing_t pairing, element_t kq)
     element_t res;
     element_init_Zr(mupow, pairing);
     element_init_G2(xpownk, pairing);
-    element_init_Zr(gk, pairing);
+    element_init_G2(gk, pairing);
     element_init_G2(res, pairing);
     element_init_Zr(nk, pairing);
     element_init_Zr(k, pairing);

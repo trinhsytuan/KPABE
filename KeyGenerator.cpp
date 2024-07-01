@@ -27,7 +27,7 @@ void genKeyForUser(pairing_t pairing, keyUser* userKey, public_parametter public
             element_pow_zn(tempmau, g, tempmau);
             element_init_Zr(userKey->du[i][j], pairing);
             element_div(userKey->du[i][j], ts, tempmau);
-            //element_printf("%B\n", userKey->du[i][j]);
+            //element_printf("%B\n", userKey->du[i][j]); nnnnnn
         }
     }
 }
