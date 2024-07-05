@@ -14,6 +14,8 @@ add_executable(KPABE main.cpp
         utils/utils.h
         Encrypt.h
         Encrypt.cpp
+        Decrypt.cpp
+        Decrypt.h
 )
 
 include_directories(KPABE "${GMP_INCLUDE_DIR}")
