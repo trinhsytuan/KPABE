@@ -3,23 +3,18 @@
 //
 #include"attribute.h"
 
-vector<vector<std::string> > generateAttributes() {
-    vector<vector<string> > attributes;
+vector<vector<element_s>> generateAttributes(global_parameter params) {
+    vector<vector<element_s>> attributes;
 
-    vector<string> att1 = {"Computer science", "Trieu Son District"};
-    vector<string> att2 = {"Mathematics", "Thanh Hoa Province"};
-    vector<string> att3 = {"Deputy", "Male"};
-    vector<string>att4= {"Att4", "4"};
-    vector<string> att5 = {"Att5", "5"};
-    vector<string>att6 = {"Att6", "v6"};
+    vector<element_s> att1 = {params.U[1], params.U[0]};
+    vector<element_s> att2 = {params.U[0], params.U[2]};
 
+
+    // Add the generated attribute to the attributes vector
     attributes.push_back(att1);
     attributes.push_back(att2);
-    attributes.push_back(att3);
-    attributes.push_back(att4);
-    attributes.push_back(att5);
-    attributes.push_back(att6);
 
 
     return attributes;
 }
+

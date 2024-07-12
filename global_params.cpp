@@ -34,7 +34,41 @@ void initGlobalParameter(pairing_t pairing, global_parameter* globalParams) {
     element_random(globalParams->alpha);
 }
 
-void initPublicParameter(pairing_t pairing, public_parametter* publicParams, global_parameter* globalParams) {
+void initPublicParameter(pairing_t pairing, global_parameter* globalParams) {
+    int totalLevel = 0;
+    for(int i = 0; i < maxAttribute;i++) totalLevel += maxLevelAttr[i];
+    element_t alphaTemp, betaTemp, betaTemp2;
+    element_init_same_as(alphaTemp, globalParams->alpha);
+    element_init_same_as(betaTemp, globalParams->beta);
+    element_init_same_as(betaTemp2, globalParams->beta);
+    element_set1(alphaTemp);
+
+    element_set1(betaTemp);
+    element_set(betaTemp2, globalParams->beta);
+    //element_printf("%B\n", betaTemp2);
+    for(int i = 1; i < totalLevel;i++) {
+        element_init_G2(globalParams->gaPow[i][0], pairing);
+        element_init_G2(globalParams->gaPow[i][1], pairing);
+        element_mul(alphaTemp, alphaTemp, globalParams->alpha);
+        element_t tempPow1, tempPow2;
+        element_init_Zr(tempPow1, pairing);
+        element_init_Zr(tempPow2, pairing);
+        element_mul(tempPow1, alphaTemp, betaTemp);
+        element_mul(tempPow2, alphaTemp, betaTemp2);
+        element_pow_zn(globalParams->gaPow[i][0], globalParams->ga, tempPow1);
+        element_pow_zn(globalParams->gaPow[i][1], globalParams->ga, tempPow2);
+        //element_printf("%B\n", globalParams->gaPow[i][1]);
+    }
+    element_t resultBetaDivAlpha;
+    element_init_Zr(resultBetaDivAlpha, pairing);
+    element_init_G2(globalParams->gaDivAlpha, pairing);
+    element_div(resultBetaDivAlpha, globalParams->beta, globalParams->alpha);
+    element_pow_zn(globalParams->gaDivAlpha, globalParams->ga, resultBetaDivAlpha);
+    element_init_G1(globalParams->gPowAlpha, pairing);
+    element_pow_zn(globalParams->gPowAlpha, globalParams->g, globalParams->alpha);
+    element_init_GT(globalParams->pairinggga, pairing);
+    element_pairing(globalParams->pairinggga, globalParams->g, globalParams->ga);
+    //element_printf("%B\n",globalParams->gaDivAlpha);
 //    element_init_G1(publicParams->g, pairing);
 //    element_set(publicParams->g, globalParams->g);
 //    for(int i = 0; i < maxAttribute;i++) {
@@ -82,4 +116,5 @@ void initPublicParameter(pairing_t pairing, public_parametter* publicParams, glo
 //    element_init_GT(publicParams->pairingGGa, pairing);
 //    //test s
 //    pairing_apply(publicParams->pairingGGa, globalParams->g, globalParams->ga, pairing);
+
 }

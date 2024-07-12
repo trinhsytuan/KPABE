@@ -6,13 +6,10 @@
 #ifndef KPABE_KEYGENERATOR_H
 #define KPABE_KEYGENERATOR_H
 using namespace std;
-const int maxPolicy = 20;
-
+const int maxDNF = 20;
 struct keyUser{
-    element_t du[maxPolicy][maxLevel];
-    element_t tij[maxPolicy][maxLevel];
-    element_t au[maxPolicy];
+    element_t du[maxUser];
 };
 void initAttribute(pairing_t pairing, keyUser* userKey);
-void genKeyForUser(pairing_t pairing, keyUser* userKey, public_parametter publicParametter, element_t alpha, element_t beta, element_t g);
+void genkeyForOneUser(pairing_t pairing, int indexUser, global_parameter params, keyUser* keyUser);
 #endif //KPABE_KEYGENERATOR_H

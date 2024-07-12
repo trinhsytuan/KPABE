@@ -55,3 +55,4 @@ void powCoefficient(element_t s1, element_t s2, pairing_t pairing, element_t kq)
     element_set(kq, res);
 
 }
+

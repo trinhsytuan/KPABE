@@ -3,13 +3,16 @@
 //
 #include<vector>
 #include<string>
+#include"global_params.h"
+#include<pbc.h>
 using namespace std;
 
 #ifndef KPABE_ATTRIBUTE_H
 #define KPABE_ATTRIBUTE_H
 
-vector<vector<std::string> > generaterAttribute();
-const int maxLevelAttr[] = {2,3,3,3,3, 3};
+vector<vector<element_s>> generateAttributes(global_parameter params);
+
+const int maxLevelAttr[] = {3,3,3,3,3, 3};
 
 
 
