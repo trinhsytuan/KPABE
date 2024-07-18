@@ -3,10 +3,11 @@
 //
 #include "global_params.h"
 #include "attribute.h"
+
 using namespace std;
 
 
-void initGlobalParameter(pairing_t pairing, global_parameter* globalParams) {
+void initGlobalParameter(pairing_t pairing, global_parameter *globalParams) {
     element_init_G1(globalParams->g, pairing);
     element_init_G2(globalParams->ga, pairing);
     element_init_Zr(globalParams->alpha, pairing);
@@ -25,7 +26,7 @@ void initGlobalParameter(pairing_t pairing, global_parameter* globalParams) {
     for (int i = 0; i < maxAttribute; i++) {
         for (int j = 0; j < maxLevelAttr[i]; j++) {
             element_init_Zr(globalParams->l[i][j], pairing);
-            element_set_si(globalParams->l[i][j], (long)j);
+            element_set_si(globalParams->l[i][j], (long) j);
         }
     }
     element_random(globalParams->beta);
@@ -34,9 +35,9 @@ void initGlobalParameter(pairing_t pairing, global_parameter* globalParams) {
     element_random(globalParams->alpha);
 }
 
-void initPublicParameter(pairing_t pairing, global_parameter* globalParams) {
+void initPublicParameter(pairing_t pairing, global_parameter *globalParams) {
     int totalLevel = 0;
-    for(int i = 0; i < maxAttribute;i++) totalLevel += maxLevelAttr[i];
+    for (int i = 0; i < maxAttribute; i++) totalLevel += maxLevelAttr[i];
     element_t alphaTemp, betaTemp, betaTemp2;
     element_init_same_as(alphaTemp, globalParams->alpha);
     element_init_same_as(betaTemp, globalParams->beta);
@@ -45,7 +46,7 @@ void initPublicParameter(pairing_t pairing, global_parameter* globalParams) {
     element_set1(betaTemp);
     element_set(betaTemp2, globalParams->beta);
     //element_printf("%B\n", betaTemp2);
-    for(int i = 1; i < totalLevel;i++) {
+    for (int i = 1; i < totalLevel; i++) {
         element_init_G2(globalParams->gaPow[i][0], pairing);
         element_init_G2(globalParams->gaPow[i][1], pairing);
         element_mul(alphaTemp, alphaTemp, globalParams->alpha);
@@ -61,7 +62,7 @@ void initPublicParameter(pairing_t pairing, global_parameter* globalParams) {
     element_init_G2(globalParams->gaPow[0][0], pairing);
     element_init_G2(globalParams->gaPow[0][1], pairing);
     element_set(globalParams->gaPow[0][0], globalParams->ga);
-    element_pow_zn(globalParams->gaPow[0][0], globalParams->ga, globalParams->beta);
+    //element_pow_zn(globalParams->gaPow[0][0], globalParams->ga, globalParams->beta);
 
     element_t resultBetaDivAlpha;
     element_init_Zr(resultBetaDivAlpha, pairing);

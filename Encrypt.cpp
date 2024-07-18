@@ -8,6 +8,7 @@
 #include"utils/utils.h"
 
 using namespace std;
+
 void encrypt(pairing_t pairing, global_parameter params, keyUser userKey, vector<vector<element_s> > attribute) {
     element_t s;
     element_init_Zr(s, pairing);
@@ -23,20 +24,59 @@ void encrypt(pairing_t pairing, global_parameter params, keyUser userKey, vector
     element_t AllUiPow[10000];
     element_t UiParamsSaved[10000];
     int n = 0;
-    for(int i = 0; i < attribute.size();i++) {
-        for(int j = 0; j < attribute[i].size();j++) {
-            for(int k = 0; k < 3;k++) { //3 is level DNF, replace
+    //test
+
+
+
+    for (int i = 0; i < 1; i++) { //Attribute one can decrypt, replace and process if you encrypt > 1 Attribute
+        for (int j = 0; j < attribute[i].size(); j++) {
+            for (int k = 0; k < 3; k++) { //3 is level DNF, replace
                 element_init_Zr(AllUiPow[n], pairing);
                 element_set(AllUiPow[n], &attribute[i][j]);
                 n++;
             }
         }
     }
+    element_t AlphaUi, tempppp;
+    element_init_G2(AlphaUi, pairing);
+    element_init_Zr(tempppp, pairing);
+    element_set1(tempppp);
+    for (int i = 0; i < n; i++) {
+        element_t tempfor;
+        element_init_Zr(tempfor, pairing);
+        element_add(tempfor, params.alpha, AllUiPow[i]);
+        element_mul(tempppp, tempppp, tempfor);
+    }
+    element_pow_zn(AlphaUi, params.ga, tempppp);
+    element_printf("%B\n", AlphaUi);
 
     vietaFormular(AllUiPow, n, UiParamsSaved, pairing);
-    for(int i = n;i>=0;i--) {
-        element_printf("%B\n", UiParamsSaved[i]);
+    element_t gaTemp;
+    element_init_G2(gaTemp, pairing);
+    //element_set(gaTemp, params.gaPow[1][0]);
+
+
+    element_t C1;
+    element_init_G2(C1, pairing);
+    for (int i = n - 1; i > 0; i--) {
+        //element_printf("%B\n", UiParamsSaved[i]);
+        element_mul(gaTemp, gaTemp, params.gaPow[1][0]);
+        element_t tinhTemp;
+        element_init_G2(tinhTemp, pairing);
+        element_pow_zn(tinhTemp, gaTemp, UiParamsSaved[i]);
+
+        element_add(C1, C1, tinhTemp);
+
     }
+    element_mul(gaTemp, gaTemp, params.gaPow[1][0]);
+    element_add(C1, C1, gaTemp);
+    element_t notAlpha;
+    element_init_G2(notAlpha, pairing);
+    element_pow_zn(notAlpha, params.ga, UiParamsSaved[n]);
+    element_add(C1, C1, notAlpha);
+    //element_printf("%B\n", params.gaPow[0][0]);
+    element_printf("%B\n", C1);
+
 
 
 //    //element_printf("%B\n", kem);
