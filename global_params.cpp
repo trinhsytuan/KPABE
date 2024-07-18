@@ -42,7 +42,6 @@ void initPublicParameter(pairing_t pairing, global_parameter* globalParams) {
     element_init_same_as(betaTemp, globalParams->beta);
     element_init_same_as(betaTemp2, globalParams->beta);
     element_set1(alphaTemp);
-
     element_set1(betaTemp);
     element_set(betaTemp2, globalParams->beta);
     //element_printf("%B\n", betaTemp2);
@@ -59,6 +58,11 @@ void initPublicParameter(pairing_t pairing, global_parameter* globalParams) {
         element_pow_zn(globalParams->gaPow[i][1], globalParams->ga, tempPow2);
         //element_printf("%B\n", globalParams->gaPow[i][1]);
     }
+    element_init_G2(globalParams->gaPow[0][0], pairing);
+    element_init_G2(globalParams->gaPow[0][1], pairing);
+    element_set(globalParams->gaPow[0][0], globalParams->ga);
+    element_pow_zn(globalParams->gaPow[0][0], globalParams->ga, globalParams->beta);
+
     element_t resultBetaDivAlpha;
     element_init_Zr(resultBetaDivAlpha, pairing);
     element_init_G2(globalParams->gaDivAlpha, pairing);

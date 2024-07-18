@@ -12,7 +12,7 @@ using namespace std;
 
 vector<vector<element_s>> generateAttributes(global_parameter params);
 
-const int maxLevelAttr[] = {3,3,3,3,3, 3};
+const int maxLevelAttr[] = {3,3};
 
 
 

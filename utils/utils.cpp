@@ -29,6 +29,7 @@ long binomialCoefficient(int n, int k) {
     return res;
 }
 void powCoefficient(element_t s1, element_t s2, pairing_t pairing, element_t kq){
+    //S1 là g1, s2 là Zr
     element_t mupow, nk, k;
     element_t xpownk, gk, temp;
     element_t res;
@@ -55,4 +56,31 @@ void powCoefficient(element_t s1, element_t s2, pairing_t pairing, element_t kq)
     element_set(kq, res);
 
 }
+void vietaFormular(element_t *roots, int n, element_t *saved, pairing_t pairing) {
+    element_t coeff[n + 1];
 
+    for(int i = 0; i <= n;i++) {
+        element_init_Zr(coeff[i], pairing);
+        element_set0(coeff[i]);
+    }
+
+    // Set highest order coefficient as 1
+    element_set1(coeff[0]);
+
+
+    for (int i = 0; i < n; i++) {
+
+        for (int j = i + 1; j > 0; j--) {
+            element_t temp;
+            element_init_Zr(temp, pairing);
+            element_mul(temp, roots[i], coeff[j-1]);
+            element_add(coeff[j], coeff[j], temp);
+        }
+    }
+
+
+    for (int i = n; i >= 0; i--) {
+        element_init_Zr(saved[i], pairing);
+        element_set(saved[i], coeff[i]);
+    }
+}
