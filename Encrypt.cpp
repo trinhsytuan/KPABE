@@ -37,18 +37,7 @@ void encrypt(pairing_t pairing, global_parameter params, keyUser userKey, vector
             }
         }
     }
-    element_t AlphaUi, tempppp;
-    element_init_G2(AlphaUi, pairing);
-    element_init_Zr(tempppp, pairing);
-    element_set1(tempppp);
-    for (int i = 0; i < n; i++) {
-        element_t tempfor;
-        element_init_Zr(tempfor, pairing);
-        element_add(tempfor, params.alpha, AllUiPow[i]);
-        element_mul(tempppp, tempppp, tempfor);
-    }
-    element_pow_zn(AlphaUi, params.ga, tempppp);
-    element_printf("%B\n", AlphaUi);
+
 
     vietaFormular(AllUiPow, n, UiParamsSaved, pairing);
     element_t gaTemp;
@@ -61,21 +50,22 @@ void encrypt(pairing_t pairing, global_parameter params, keyUser userKey, vector
     for (int i = n - 1; i > 0; i--) {
         //element_printf("%B\n", UiParamsSaved[i]);
         element_mul(gaTemp, gaTemp, params.gaPow[1][0]);
+       // element_printf("%B\n%B\n", gaTemp, params.gaPow[2][0]);
         element_t tinhTemp;
         element_init_G2(tinhTemp, pairing);
         element_pow_zn(tinhTemp, gaTemp, UiParamsSaved[i]);
 
-        element_add(C1, C1, tinhTemp);
+        element_mul(C1, C1, tinhTemp);
 
     }
     element_mul(gaTemp, gaTemp, params.gaPow[1][0]);
-    element_add(C1, C1, gaTemp);
+    element_mul(C1, C1, gaTemp);
     element_t notAlpha;
     element_init_G2(notAlpha, pairing);
     element_pow_zn(notAlpha, params.ga, UiParamsSaved[n]);
-    element_add(C1, C1, notAlpha);
-    //element_printf("%B\n", params.gaPow[0][0]);
-    element_printf("%B\n", C1);
+    element_mul(C1, C1, notAlpha);
+    element_pow_zn(C1, C1, s);
+    element_printf("%B\n%B\n", C0, C1);
 
 
 
