@@ -6,5 +6,5 @@
 #include"KeyGenerator.h"
 #ifndef KPABE_DECRYPT_H
 #define KPABE_DECRYPT_H
-void decrypt(pairing_t pairing, global_parameter params, element_t C1, element_t C2, keyUser keyUser, int level);
+void decrypt(pairing_t pairing, global_parameter params, element_t C1, element_t C2, keyUser keyUser, int maxLevel, int userLevel, int indexUser, vector<vector<element_s> > attribute);
 #endif //KPABE_DECRYPT_Hx

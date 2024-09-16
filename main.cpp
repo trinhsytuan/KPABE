@@ -7,6 +7,7 @@
 #include "KeyGenerator.h"
 #include "utils/utils.h"
 #include"Encrypt.h"
+#include"Decrypt.h"
 #include<iostream>
 using namespace std;
 int main() {
@@ -23,7 +24,8 @@ int main() {
     initPublicParameter(pairing,  &paramsGlobal);
     genkeyForOneUser(pairing, 1, paramsGlobal, &userKey);
     vector<vector<element_s>> attribute = generateAttributes(paramsGlobal);
-    encrypt(pairing, paramsGlobal, userKey, attribute);
+    vector<element_s> enc = encrypt(pairing, paramsGlobal, userKey, attribute);
+    decrypt(pairing, paramsGlobal, enc[0], enc[1], )
 //    initAttribute(pairing, &userKey);
 //    genKeyForUser(pairing, &userKey, pubParametter, paramsGlobal.alpha, paramsGlobal.beta, paramsGlobal.g);
 //    encrypt(pairing, pubParametter, tt ,3,6);

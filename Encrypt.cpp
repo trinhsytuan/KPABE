@@ -9,7 +9,8 @@
 
 using namespace std;
 
-void encrypt(pairing_t pairing, global_parameter params, keyUser userKey, vector<vector<element_s> > attribute) {
+vector<element_s> encrypt(pairing_t pairing, global_parameter params, keyUser userKey, vector<vector<element_s> > attribute) {
+    vector<element_s> en;
     element_t s;
     element_init_Zr(s, pairing);
     element_random(s);
@@ -66,7 +67,9 @@ void encrypt(pairing_t pairing, global_parameter params, keyUser userKey, vector
     element_mul(C1, C1, notAlpha);
     element_pow_zn(C1, C1, s);
     element_printf("%B\n%B\n", C0, C1);
-
+    en.push_back(*C0);
+    en.push_back(*C1);
+    return en;
 
 
 //    //element_printf("%B\n", kem);

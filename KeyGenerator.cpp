@@ -55,7 +55,7 @@ using namespace std;
 //}
 void genkeyForOneUser(pairing_t pairing, int indexUser, global_parameter params, keyUser* keyUser) {
     int n = 2;
-    element_s* attr[2][2] = {{params.U[0], params.U[1]},{params.U[2], params.U[3]}};
+    element_s* attr[2][2] = {{params.U[0], params.U[1]}, {params.U[2], params.U[3]}};
 
     int level[] = {3,3};
 

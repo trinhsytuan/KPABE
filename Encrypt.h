@@ -7,5 +7,5 @@
 #ifndef KPABE_ENCRYPT_H
 #define KPABE_ENCRYPT_H
 
-void encrypt(pairing_t pairing, global_parameter params, keyUser userKey, vector<vector<element_s> > attribute);
+vector<element_s> encrypt(pairing_t pairing, global_parameter params, keyUser userKey, vector<vector<element_s> > attribute);
 #endif //KPABE_ENCRYPT_H
